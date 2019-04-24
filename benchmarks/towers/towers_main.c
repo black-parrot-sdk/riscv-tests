@@ -224,9 +224,9 @@ int main( int argc, char* argv[] )
   // Solve it
 
   towers_clear( &towers );
-  setStats(1);
+  //setStats(1);
   towers_solve( &towers );
-  setStats(0);
+  //setStats(0);
 
   // Check the results
   return towers_verify( &towers );

@@ -144,9 +144,9 @@ int main( int argc, char* argv[] )
 #endif
 
   // Do the sort
-  setStats(1);
+  //setStats(1);
   sort( DATA_SIZE, input_data );
-  setStats(0);
+  //setStats(0);
 
   // Check the results
   return verify( DATA_SIZE, input_data, verify_data );
