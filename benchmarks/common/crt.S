@@ -65,7 +65,8 @@ _start:
   j 2b
 1:
 
-#ifdef __riscv_flen
+# BP: Don't initialize floats, even if the toolchain supports it
+#if 0
   # initialize FPU if we have one
   la t0, 1f
   csrw mtvec, t0
