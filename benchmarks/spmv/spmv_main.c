@@ -44,9 +44,9 @@ int main( int argc, char* argv[] )
   spmv(R, val, idx, x, ptr, y);
 #endif
 
-  setStats(1);
+  //setStats(1);
   spmv(R, val, idx, x, ptr, y);
-  setStats(0);
+  //setStats(0);
 
   return verifyDouble(R, y, verify_data);
 }
