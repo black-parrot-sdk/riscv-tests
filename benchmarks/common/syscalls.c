@@ -66,11 +66,10 @@ uintptr_t __attribute__((weak)) handle_trap(uintptr_t cause, uintptr_t epc, uint
 
 void exit(int code)
 {
-  uint64_t *passfail_addr = 0xc00dead0;
   if (!code)
-    *passfail_addr = 0;
+    write_csr(0x800, 0);
   else
-    *passfail_addr = -1;
+    write_csr(0x800, -1);
   tohost_exit(code);
 }
 
