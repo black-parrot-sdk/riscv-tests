@@ -176,7 +176,7 @@ int main (int argc, char** argv)
       Number_Of_Runs = Number_Of_Runs * 10;
       printf("\n");
       */
-      //printf("There is no concept of time implimented yet");
+      //printf("There is no concept of time implemented yet");
       Done = true;
     } else Done = true;
   }
