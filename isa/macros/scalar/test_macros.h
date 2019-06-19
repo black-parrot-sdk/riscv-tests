@@ -636,8 +636,12 @@ test_ ## testnum: \
         bne x0, TESTNUM, pass; \
 fail: \
         RVTEST_FAIL; \
+halt_fail: \
+        j halt_fail; \
 pass: \
-        RVTEST_PASS \
+        RVTEST_PASS; \
+halt_pass: \
+        j halt_pass;
 
 
 #-----------------------------------------------------------------------
