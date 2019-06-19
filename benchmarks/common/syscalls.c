@@ -66,11 +66,11 @@ uintptr_t __attribute__((weak)) handle_trap(uintptr_t cause, uintptr_t epc, uint
 
 void exit(int code)
 {
-  if (!code)
-    write_csr(0x800, 0);
-  else
-    write_csr(0x800, -1);
-  tohost_exit(code);
+  write_csr(0x800, code);
+  uint64_t mhartid = read_csr(mhartid);
+  uint64_t *finish_address = 0x03002000 + (mhartid << 3);
+  *finish_address = code;
+  while (1);
 }
 
 void abort()
