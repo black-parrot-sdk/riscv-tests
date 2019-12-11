@@ -1,8 +1,8 @@
 #ifndef INIT_H
 #define INIT_H
 
-#define MTIME           (*(volatile long long *)(0x02000000 + 0xbff8))
-#define MTIMECMP        ((volatile long long *)(0x02000000 + 0x4000))
+#define MTIME           (*(volatile long long *)(0x00300000 + 0x8000))
+#define MTIMECMP        ((volatile long long *)(0x00300000 + 0x4000))
 
 #define csr_read(csr)                                   \
 ({                                                      \
