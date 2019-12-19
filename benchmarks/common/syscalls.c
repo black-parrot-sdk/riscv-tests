@@ -67,7 +67,7 @@ uintptr_t __attribute__((weak)) handle_trap(uintptr_t cause, uintptr_t epc, uint
 void exit(int code)
 {
   uint64_t mhartid = read_csr(mhartid);
-  uint64_t *finish_address = (uint64_t*)(0x03002000 + (mhartid << 3));
+  uint64_t *finish_address = (uint64_t*)(0x0102000 + (mhartid << 3));
   *finish_address = code;
   while (1);
 }

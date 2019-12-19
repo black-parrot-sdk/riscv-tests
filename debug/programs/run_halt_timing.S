@@ -11,7 +11,7 @@
         .global main
 main:
         li      s0, 0
-        li      s1, 0x0200bff8
+        li      s1, 0x00308000
 loop:
         addi    s0, s0, 1
         LREG    s2, 0(s1)
