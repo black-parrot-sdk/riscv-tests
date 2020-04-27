@@ -54,24 +54,20 @@ vpath %.S $(src_dir)
 define compile_template
 
 $$($(1)_p_tests): $(1)-p-%: $(1)/%.S
-	$$(RISCV_GCC) $(2) $$(RISCV_GCC_OPTS) -I$(src_dir)/../env/p -I$(src_dir)/macros/scalar -T$(src_dir)/../env/p/link.ld $(BP_COMMON_DIR)/test/src/perch/atomics.S $(BP_COMMON_DIR)/test/src/perch/muldiv.S  $(BP_COMMON_DIR)/test/src/perch/exception.S $(BP_COMMON_DIR)/test/src/perch/emulation.c  $$< -o $$@
+	$$(RISCV_GCC) $(2) $$(RISCV_GCC_OPTS) -I$(src_dir)/../env/p -I$(src_dir)/macros/scalar -T$(src_dir)/../env/p/link.ld $(BP_COMMON_DIR)/test/src/perch/atomics.S $(BP_COMMON_DIR)/test/src/perch/muldiv.S  $(BP_COMMON_DIR)/test/src/perch/exception.S $(BP_COMMON_DIR)/test/src/perch/emulation.c  $$< -o $$@.riscv
 $(1)_tests += $$($(1)_p_tests)
 
 $$($(1)_pt_tests): $(1)-pt-%: $(1)/%.S
-	$$(RISCV_GCC) $(2) $$(RISCV_GCC_OPTS) -I$(src_dir)/../env/pt -I$(src_dir)/macros/scalar -T$(src_dir)/../env/pt/link.ld $(BP_COMMON_DIR)/test/src/perch/atomics.S $(BP_COMMON_DIR)/test/src/perch/muldiv.S $(BP_COMMON_DIR)/test/src/perch/exception.S $(BP_COMMON_DIR)/test/src/perch/emulation.c  $$< -o $$@
+	$$(RISCV_GCC) $(2) $$(RISCV_GCC_OPTS) -I$(src_dir)/../env/pt -I$(src_dir)/macros/scalar -T$(src_dir)/../env/pt/link.ld $(BP_COMMON_DIR)/test/src/perch/atomics.S $(BP_COMMON_DIR)/test/src/perch/muldiv.S $(BP_COMMON_DIR)/test/src/perch/exception.S $(BP_COMMON_DIR)/test/src/perch/emulation.c  $$< -o $$@.riscv
 $(1)_tests += $$($(1)_pt_tests)
 
 $$($(1)_v_tests): $(1)-v-%: $(1)/%.S
-	$$(RISCV_GCC) $(2) $$(RISCV_GCC_OPTS) -DENTROPY=0x$$(shell echo \$$@ | md5sum | cut -c 1-7) -std=gnu99 -O2 -I$(src_dir)/../env/v -I$(src_dir)/macros/scalar -T$(src_dir)/../env/v/link.ld $(src_dir)/../env/v/entry.S $(src_dir)/../env/v/*.c $$< -o $$@ 
+	$$(RISCV_GCC) $(2) $$(RISCV_GCC_OPTS) -DENTROPY=0x$$(shell echo \$$@ | md5sum | cut -c 1-7) -std=gnu99 -O2 -I$(src_dir)/../env/v -I$(src_dir)/macros/scalar -T$(src_dir)/../env/v/link.ld $(src_dir)/../env/v/entry.S $(src_dir)/../env/v/*.c $$< -o $$@.riscv
 $(1)_tests += $$($(1)_v_tests)
 
 $$($(1)_vt_tests): $(1)-vt-%: $(1)/%.S
-	$$(RISCV_GCC) $(2) $$(RISCV_GCC_OPTS) -DENTROPY=0x$$(shell echo \$$@ | md5sum | cut -c 1-7) -std=gnu99 -O2 -I$(src_dir)/../env/v -I$(src_dir)/macros/scalar -T$(src_dir)/../env/v/link.ld $(src_dir)/../env/vt/entry.S $(src_dir)/../env/v/*.c $$< -o $$@
+	$$(RISCV_GCC) $(2) $$(RISCV_GCC_OPTS) -DENTROPY=0x$$(shell echo \$$@ | md5sum | cut -c 1-7) -std=gnu99 -O2 -I$(src_dir)/../env/v -I$(src_dir)/macros/scalar -T$(src_dir)/../env/v/link.ld $(src_dir)/../env/vt/entry.S $(src_dir)/../env/v/*.c $$< -o $$@.riscv
 $(1)_tests += $$($(1)_vt_tests)
-
-$(1)_tests_dump = $$(addsuffix .dump, $$($(1)_tests))
-
-$(1): $$($(1)_tests_dump)
 
 .PHONY: $(1)
 
@@ -98,19 +94,10 @@ $(eval $(call compile_template,rv64si,-march=rv64g -mabi=lp64))
 $(eval $(call compile_template,rv64mi,-march=rv64g -mabi=lp64))
 endif
 
-tests_dump = $(addsuffix .dump, $(tests))
-tests_hex = $(addsuffix .hex, $(tests))
-tests_out = $(addsuffix .out, $(spike_tests))
-tests32_out = $(addsuffix .out32, $(spike32_tests))
-
-run: $(tests_out) $(tests32_out)
-
-junk += $(tests) $(tests_dump) $(tests_hex) $(tests_out) $(tests32_out)
-
 #------------------------------------------------------------
 # Default
 
-all: $(tests_dump)
+all: $(tests)
 
 #------------------------------------------------------------
 # Clean up
