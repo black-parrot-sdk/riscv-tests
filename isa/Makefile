@@ -54,11 +54,11 @@ vpath %.S $(src_dir)
 define compile_template
 
 $$($(1)_p_tests): $(1)-p-%: $(1)/%.S
-	$$(RISCV_GCC) $(2) $$(RISCV_GCC_OPTS) -I$(src_dir)/../env/p -I$(src_dir)/macros/scalar -T$(src_dir)/../env/p/link.ld $(BP_SDK_DIR)/perch/atomics.S $(BP_SDK_DIR)/perch/muldiv.S  $(BP_SDK_DIR)/perch/exception.S $(BP_SDK_DIR)/perch/emulation.c  $$< -o $$@.riscv
+	$$(RISCV_GCC) $(2) $$(RISCV_GCC_OPTS) -I$(src_dir)/../env/p -I$(src_dir)/macros/scalar -T$(src_dir)/../env/p/link.ld $(BP_SDK_DIR)/perch/atomics.S $(BP_SDK_DIR)/perch/muldiv.S  $(BP_SDK_DIR)/perch/exception.S $(BP_SDK_DIR)/perch/emulation.c $(BP_SDK_DIR)/perch/bp_utils.c  $$< -o $$@.riscv
 $(1)_tests += $$($(1)_p_tests)
 
 $$($(1)_pt_tests): $(1)-pt-%: $(1)/%.S
-	$$(RISCV_GCC) $(2) $$(RISCV_GCC_OPTS) -I$(src_dir)/../env/pt -I$(src_dir)/macros/scalar -T$(src_dir)/../env/pt/link.ld $(BP_SDK_DIR)/perch/atomics.S $(BP_SDK_DIR)/perch/muldiv.S $(BP_SDK_DIR)/perch/exception.S $(BP_SDK_DIR)/perch/emulation.c  $$< -o $$@.riscv
+	$$(RISCV_GCC) $(2) $$(RISCV_GCC_OPTS) -I$(src_dir)/../env/pt -I$(src_dir)/macros/scalar -T$(src_dir)/../env/pt/link.ld $(BP_SDK_DIR)/perch/atomics.S $(BP_SDK_DIR)/perch/muldiv.S $(BP_SDK_DIR)/perch/exception.S $(BP_SDK_DIR)/perch/emulation.c $(BP_SDK_DIR)/perch/bp_utils.c  $$< -o $$@.riscv
 $(1)_tests += $$($(1)_pt_tests)
 
 $$($(1)_v_tests): $(1)-v-%: $(1)/%.S
